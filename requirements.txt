@@ -1,0 +1,8 @@
+Flask
+gunicorn #在heroku 上啟動專案
+bs4
+pandas
+flask
+aiohttp
+asyncio
+time
