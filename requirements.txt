@@ -1,4 +1,3 @@
-Flask
 gunicorn 
 bs4
 pandas
