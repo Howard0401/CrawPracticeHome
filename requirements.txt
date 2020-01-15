@@ -1,5 +1,5 @@
 Flask
-gunicorn #在heroku 上啟動專案
+gunicorn 
 bs4
 pandas
 flask
