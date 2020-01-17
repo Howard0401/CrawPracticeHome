@@ -30,6 +30,13 @@ class SetData():
         self.Price = price
 
 
+class outputWebItem():
+    def __init__(self):
+        self.webname = list()
+        self.webprice = list()
+        self.weblink = list()
+
+
 headers = {
     'user-agent':
     'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36'
@@ -84,8 +91,8 @@ def _parse_results(url, html):
         for i in range(10):
             hot.Name.append(hotproPic[i].get('alt'))
             hot.Img.append(hotproPic[i].get('src'))
-        print(hot.Img)
-            # 精選產品圖片與名稱
+        # print(hot.Img)
+        # 精選產品圖片與名稱
         for w in range(4):  # len(selproPic)
 
             sel.Img.append(selproPic[w].get('src'))
@@ -104,15 +111,20 @@ def _parse_results(url, html):
             wb.weblink.append(hotprobtName[j].get('href'))  # 熱門網站導向連結
             wb.webprice.append(hotprobtprice[j].get('content'))  # 熱門產品價錢區
             if (j % 3 == 0):
-                formatContainer[int(j / 3)][0] = [hotprobtName[int(j / 3)
-                                                               ].get('data-store'), hotprobtName[int(j / 3)].get('href'),  hotprobtprice[int(j / 3)].get('content')]
-                formatContainer[int(j / 3)][1] = [hotprobtName[int(j / 3+1)
-                                                               ].get('data-store'), hotprobtName[int(j / 3+1)].get('href'),  hotprobtprice[int(j / 3+1)].get('content')]
-                formatContainer[int(j / 3)][2] = [hotprobtName[int(j / 3+2)
-                                                               ].get('data-store'), hotprobtName[int(j / 3 + 2)].get('href'), hotprobtprice[int(j / 3 + 2)].get('content')]
+                formatContainer[int(j / 3)][0] = [{"shop":hotprobtName[int(j / 3)
+                                                                       ].get('data-store'), "link": hotprobtName[int(j / 3)].get('href'), "price":hotprobtprice[int(j / 3)].get('content')}]
+                formatContainer[int(j / 3)][1] = [{"shop": hotprobtName[int(j / 3+1)
+                                                                        ].get('data-store'), "link":hotprobtName[int(j / 3+1)].get('href'), "price": hotprobtprice[int(j / 3+1)].get('content')}]
+                formatContainer[int(j / 3)][2] = [{"shop": hotprobtName[int(j / 3+2)
+                                                                        ].get('data-store'), "link":hotprobtName[int(j / 3 + 2)].get('href'), "price": hotprobtprice[int(j / 3 + 2)].get('content')}]
+
         # 依序放入熱門商品中
         for n in range(len(formatContainer)):
             hot.webItems[n] = formatContainer[n]
+        # print(aa.webname)
+        # print(aa.weblink)
+        # print(aa.webprice)
+        # for n in range(len(hot.webItems)):
 
        # 精選產品價錢跟網站區
         for q in range(4):  # 這邊price時而抓到時而抓不到 待修 #常跑出來莫名其妙的5折起之類的東西
