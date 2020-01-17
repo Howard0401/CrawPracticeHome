@@ -105,21 +105,36 @@ def _parse_results(url, html):
 
         #  內容區-----------
         # Container [[0,0,0]...[0,0,0]]每個0裡面都是放[網站,連結,價錢]
-        formatContainer = [[0] * 3 for i in range(10)]
+        formatContainer = [[]for i in range(10)]
+        # formatContainer = [[0] * 3 for i in range(10)]
+        # print(formatContainer)
         for j in range(0, len(hotprobtName)):
             wb.webname.append(hotprobtName[j].get('data-store'))  # 熱門產品網站
             wb.weblink.append(hotprobtName[j].get('href'))  # 熱門網站導向連結
             wb.webprice.append(hotprobtprice[j].get('content'))  # 熱門產品價錢區
             if (j % 3 == 0):
-                formatContainer[int(j / 3)][0] = {"first_shop":hotprobtName[int(j / 3)
-                                                                            ].get('data-store'), "first_link": hotprobtName[int(j / 3)].get('href'), "first_price": hotprobtprice[int(j / 3)].get('content')}
-                formatContainer[int(j / 3)][1] = {"second_shop": hotprobtName[int(j / 3+1)
-                                                                              ].get('data-store'), "second_link": hotprobtName[int(j / 3+1)].get('href'), "second_price": hotprobtprice[int(j / 3+1)].get('content')}
-                formatContainer[int(j / 3)][2] = {"third_shop": hotprobtName[int(j / 3+2)
-                                                                             ].get('data-store'), "third_link": hotprobtName[int(j / 3 + 2)].get('href'), "third_price": hotprobtprice[int(j / 3 + 2)].get('content')}
-        # 依序放入熱門商品中
+                # formatContainer[int(j / 3)][0] = {"first_shop":hotprobtName[int(j / 3)
+                #                                                             ].get('data-store'), "first_link": hotprobtName[int(j / 3)].get('href'), "first_price": hotprobtprice[int(j / 3)].get('content')}
+                # formatContainer[int(j / 3)][1] = {"second_shop": hotprobtName[int(j / 3+1)
+                #                                                               ].get('data-store'), "second_link": hotprobtName[int(j / 3+1)].get('href'), "second_price": hotprobtprice[int(j / 3+1)].get('content')}
+                # formatContainer[int(j / 3)][2] = {"third_shop": hotprobtName[int(j / 3+2)
+                #                                                              ].get('data-store'), "third_link": hotprobtName[int(j / 3 + 2)].get('href'), "third_price": hotprobtprice[int(j / 3 + 2)].get('content')}
+                formatContainer[int(j / 3)].append(hotprobtName[int(j / 3)].get('data-store'))
+                formatContainer[int(j / 3)].append(hotprobtName[int(j / 3)].get('href'))
+                formatContainer[int(j / 3)].append(hotprobtprice[int(j / 3)].get('content'))
+                formatContainer[int(j / 3)].append(hotprobtName[int(j / 3+1)].get('data-store'))
+                formatContainer[int(j / 3)].append(hotprobtName[int(j / 3+1)].get('href'))
+                formatContainer[int(j / 3)].append(hotprobtprice[int(j / 3+1)].get('content'))
+                formatContainer[int(j / 3)].append(hotprobtName[int(j / 3+2)].get('data-store'))
+                formatContainer[int(j / 3)].append(hotprobtName[int(j / 3+2)].get('href'))
+                formatContainer[int(j / 3)].append(hotprobtprice[int(j / 3+2)].get('content'))
+        # print(formatContainer)
+        # print(len(formatContainer))
+        # hot.webItems = formatContainer
+        hot.webItems = []
         for n in range(len(formatContainer)):
-            hot.webItems[n] = formatContainer[n]
+            hot.webItems.append(formatContainer[n])
+        # print(hot.webItems)
         # print(aa.webname)
         # print(aa.weblink)
         # print(aa.webprice)
@@ -135,9 +150,11 @@ def _parse_results(url, html):
         for q in range(len(personbtweb)):
             person.Web.append(personbtweb[q].get('href'))
             person.Price.append(personbtprice[q].string)
+        # print(hot.Img)
         # 使用pandas轉換成我們要的格式
         hotProduct = pandas.DataFrame(
             {"hotName": hot.Name, "hotImg": hot.Img, "hotlist": hot.webItems})
+        # print(hot.webItems)
         selProduct = pandas.DataFrame(
             {"selName": sel.Name, "selImg": sel.Img, "selPrice": sel.Price, "selWeb": sel.Web})
         perProduct = pandas.DataFrame(
