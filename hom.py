@@ -111,13 +111,12 @@ def _parse_results(url, html):
             wb.weblink.append(hotprobtName[j].get('href'))  # 熱門網站導向連結
             wb.webprice.append(hotprobtprice[j].get('content'))  # 熱門產品價錢區
             if (j % 3 == 0):
-                formatContainer[int(j / 3)][0] = [{"shop":hotprobtName[int(j / 3)
-                                                                       ].get('data-store'), "link": hotprobtName[int(j / 3)].get('href'), "price":hotprobtprice[int(j / 3)].get('content')}]
-                formatContainer[int(j / 3)][1] = [{"shop": hotprobtName[int(j / 3+1)
-                                                                        ].get('data-store'), "link":hotprobtName[int(j / 3+1)].get('href'), "price": hotprobtprice[int(j / 3+1)].get('content')}]
-                formatContainer[int(j / 3)][2] = [{"shop": hotprobtName[int(j / 3+2)
-                                                                        ].get('data-store'), "link":hotprobtName[int(j / 3 + 2)].get('href'), "price": hotprobtprice[int(j / 3 + 2)].get('content')}]
-
+                formatContainer[int(j / 3)][0] = {"first_shop":hotprobtName[int(j / 3)
+                                                                            ].get('data-store'), "first_link": hotprobtName[int(j / 3)].get('href'), "first_price": hotprobtprice[int(j / 3)].get('content')}
+                formatContainer[int(j / 3)][1] = {"second_shop": hotprobtName[int(j / 3+1)
+                                                                              ].get('data-store'), "second_link": hotprobtName[int(j / 3+1)].get('href'), "second_price": hotprobtprice[int(j / 3+1)].get('content')}
+                formatContainer[int(j / 3)][2] = {"third_shop": hotprobtName[int(j / 3+2)
+                                                                             ].get('data-store'), "third_link": hotprobtName[int(j / 3 + 2)].get('href'), "third_price": hotprobtprice[int(j / 3 + 2)].get('content')}
         # 依序放入熱門商品中
         for n in range(len(formatContainer)):
             hot.webItems[n] = formatContainer[n]
