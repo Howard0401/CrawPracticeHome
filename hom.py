@@ -83,8 +83,8 @@ def _parse_results(url, html):
         # 熱門產品圖片與名稱
         for i in range(10):
             hot.Name.append(hotproPic[i].get('alt'))
-            hot.Img.append(hotproPic[i].get('srcset'))
-
+            hot.Img.append(hotproPic[i].get('src'))
+        print(hot.Img)
             # 精選產品圖片與名稱
         for w in range(4):  # len(selproPic)
 
