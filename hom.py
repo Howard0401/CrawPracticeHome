@@ -68,7 +68,7 @@ def _parse_results(url, html):
         selbtweb = soup.select(
             "div#today_choice > ul.mod_product > li.pure-u > a.grid_shadow ")
         selbtprice = soup.select(
-            "div#today_choice > ul.mod_product > li.pure-u > a.grid_shadow > div.mod_grid_layout_info > div.mod_grid_layout_container_bottom > div.mod_grid_layout_container_bottom_left > span.price")
+            "div#today_choice > ul.mod_product > li.pure-u > a.grid_shadow > div.mod_grid_layout_info > div.mod_grid_layout_container_bottom > div.mod_grid_layout_container_bottom_left > span.large")
 
         # 人氣產品區
         personproPic = soup.select(
@@ -93,7 +93,7 @@ def _parse_results(url, html):
             hot.Img.append(hotproPic[i].get('src'))
         # print(hot.Img)
         # 精選產品圖片與名稱
-        for w in range(4):  # len(selproPic)
+        for w in range(len(selproPic)):  # len(selproPic)
 
             sel.Img.append(selproPic[w].get('src'))
             sel.Name.append(selproName[w].string)
@@ -141,7 +141,7 @@ def _parse_results(url, html):
         # for n in range(len(hot.webItems)):
 
        # 精選產品價錢跟網站區
-        for q in range(4):  # 這邊price時而抓到時而抓不到 待修 #常跑出來莫名其妙的5折起之類的東西
+        for q in range(len(selbtweb)):  # 這邊price時而抓到時而抓不到 待修 #常跑出來莫名其妙的5折起之類的東西
             sel.Web.append(selbtweb[q].get('data-url'))
             sel.Price.append(selbtprice[q].string)
             # print(selbtprice[q].string)
